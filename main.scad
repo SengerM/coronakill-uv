@@ -36,4 +36,39 @@ module tubo_germicida() {
         metalsito();
 }
 
-tubo_germicida();
+module reactancia() {
+    module ranura() {
+        translate([0,0,-1]) {
+            cube([9-4.5/2,4.5,3]);
+            translate([9-4.5/2,4.5/2,0])
+                cylinder(h=3,d=4.5);
+        }
+    }
+    module agujero() {
+        translate([0,0,-1])
+            cylinder(h=3,d=5);
+    }
+    color([1,1,1]) {
+        difference() {
+            cube([85,41,1]);
+            translate([0,41/2-4.5/2,0])
+                ranura();
+            translate([85,41/2+4.5/2,0])
+                rotate(a=180,v=[0,0,1])
+                    ranura();
+            translate([76.5+5/2,5+5/2,0])
+                agujero();
+            translate([76.5+5/2,41-5-5/2,0])
+                agujero();
+        }
+        translate([16.5,0,0])
+            cube([35,41,28]);
+        translate([63,41/2-21/2,3])
+            cube([18,21,12]);
+        translate([51,(41-31)/2,3])
+            cube([12,31,25]);
+        translate([16.5-9,(41-31)/2,3])
+            cube([9,31,22]);
+    }
+}
+
