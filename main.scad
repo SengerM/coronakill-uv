@@ -72,3 +72,29 @@ module reactancia() {
     }
 }
 
+module arrancador() {
+    color([.3,.4,1], alpha=.5)
+        cylinder(h=35,d=21);
+}
+
+module zocalo_arrancador() {
+    color([1,1,1]) {
+        difference() {
+            cube([45,9,12.5]);
+            translate([45/2-37/2,9/2,-1])
+                cylinder(h=15,d=4);
+            translate([45/2+37/2,9/2,-1])
+                cylinder(h=15,d=4);
+        }
+        translate([45/2,9/2,0])
+            cylinder(h=12.5,d=27);
+    }
+}
+
+module zocalo_con_arrancador() {
+    zocalo_arrancador();
+    translate([45/2,9/2,42-35])
+        arrancador();
+}
+
+zocalo_con_arrancador();
