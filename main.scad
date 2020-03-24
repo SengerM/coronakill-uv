@@ -97,4 +97,40 @@ module zocalo_con_arrancador() {
         arrancador();
 }
 
-zocalo_con_arrancador();
+///////////////////////////////////////////////////////////
+
+DIAMETRO_TUBO = 19;
+LONGITUD_TUBO = 265+2*11+2*7;
+ESPESOR_MINIMO = 4;
+EXCESO_LONGITUDINAL = 5;
+ANCHO_INTERNO_Y = 44;
+ESPESOR_BASE = 8;
+SEPARACION_BASE_TUBO = 5;
+DISTANCIA_CUBRIR_TUBO = 11+7+10;
+
+module gabinete() {
+    translate([-EXCESO_LONGITUDINAL,-ANCHO_INTERNO_Y/2,SEPARACION_BASE_TUBO+DIAMETRO_TUBO/2])
+        cube([LONGITUD_TUBO+2*EXCESO_LONGITUDINAL,ANCHO_INTERNO_Y, ESPESOR_BASE]);
+    
+    difference() {
+        translate([0,-ANCHO_INTERNO_Y/2,DIAMETRO_TUBO/2+SEPARACION_BASE_TUBO-(DIAMETRO_TUBO/2+SEPARACION_BASE_TUBO+DIAMETRO_TUBO)]) {
+            translate([-EXCESO_LONGITUDINAL,0,0])
+                cube([EXCESO_LONGITUDINAL+DISTANCIA_CUBRIR_TUBO,ANCHO_INTERNO_Y,DIAMETRO_TUBO/2+SEPARACION_BASE_TUBO+DIAMETRO_TUBO]);
+            translate([LONGITUD_TUBO+EXCESO_LONGITUDINAL-(EXCESO_LONGITUDINAL+DISTANCIA_CUBRIR_TUBO),0,0])
+                cube([EXCESO_LONGITUDINAL+DISTANCIA_CUBRIR_TUBO,ANCHO_INTERNO_Y,DIAMETRO_TUBO/2+SEPARACION_BASE_TUBO+DIAMETRO_TUBO]);
+        }
+        translate([-EXCESO_LONGITUDINAL-1,0,0])
+        rotate(a=90,v=[0,1,0])
+            cylinder(h=LONGITUD_TUBO+2*EXCESO_LONGITUDINAL+2,d=DIAMETRO_TUBO);
+    }
+}
+
+gabinete();
+translate([0,0,SEPARACION_BASE_TUBO+DIAMETRO_TUBO/2+ESPESOR_BASE]) {
+    translate([200,-9/2,0])
+        zocalo_con_arrancador();
+    translate([50,-41/2,0])
+        reactancia();
+}
+rotate(a=90, v=[0,1,0])
+    tubo_germicida();
