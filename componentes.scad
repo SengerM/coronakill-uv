@@ -1,3 +1,6 @@
+function diametro_tubo_germicida() = 18.8;
+function longitud_tubo_germicida() = 265+2*11+2*7;
+
 module tubo_germicida() {
     LONGITUD_VIDRIO = 265;
     DIAMETRO_VIDRIO = 18.8;
@@ -35,6 +38,8 @@ module tubo_germicida() {
     translate([0,0,LONGITUD_PIN])
         metalsito();
 }
+
+function dimensiones_reactancia() = [85,41,28];
 
 module reactancia() {
     module ranura() {
@@ -96,3 +101,5 @@ module zocalo_con_arrancador() {
     translate([45/2,9/2,42-35])
         arrancador();
 }
+
+function dimensiones_zocalo_con_arrancador() = [45,27,42];
