@@ -9,6 +9,8 @@ LUZ_COMPONENTES_PAREDES = 1;
 LONGITUD_EXPUESTA_TUBO = longitud_tubo_germicida()-2*11-2*7-10;
 LUZ_PORTA_TUBOS = 1;
 DIAMETRO_CABLE_ALIMENTACION = 4;
+ALTURA_SOLAPA_TAPA = ESPESOR_MINIMO;
+LUZ_SOLAPAS_BASE_TAPA = 1;
 
 module base() {
     translate ([
@@ -20,15 +22,15 @@ module base() {
         /*y*/ESPESOR_MINIMO,
         /*z*/dimensiones_zocalo_con_arrancador()[2]+LUZ_COMPONENTES_PAREDES/2
     ]);
-    translate ([
-        /*x*/0,
-        /*y*/diametro_tubo_germicida()/2+SEPARACION_BASE_TUBO+ESPESOR_MINIMO-SEPARACION_BASE_TUBO-2*diametro_tubo_germicida(),
-        /*z*/-ESPESOR_MINIMO-dimensiones_zocalo_con_arrancador()[2]/2-LUZ_COMPONENTES_PAREDES/2
-    ]) cube ([
-        /*x*/2*ESPESOR_MINIMO+longitud_tubo_germicida()+2*EXCESO_LONGITUDINAL, 
-        /*y*/ESPESOR_MINIMO+dimensiones_reactancia()[1]+2*LUZ_COMPONENTES_PAREDES+SEPARACION_BASE_TUBO+2*diametro_tubo_germicida(), 
-        /*z*/ESPESOR_MINIMO
-    ]);
+//    translate ([
+//        /*x*/0,
+//        /*y*/diametro_tubo_germicida()/2+SEPARACION_BASE_TUBO+ESPESOR_MINIMO-SEPARACION_BASE_TUBO-2*diametro_tubo_germicida(),
+//        /*z*/-ESPESOR_MINIMO-dimensiones_zocalo_con_arrancador()[2]/2-LUZ_COMPONENTES_PAREDES/2
+//    ]) cube ([
+//        /*x*/2*ESPESOR_MINIMO+longitud_tubo_germicida()+2*EXCESO_LONGITUDINAL, 
+//        /*y*/ESPESOR_MINIMO+dimensiones_reactancia()[1]+2*LUZ_COMPONENTES_PAREDES+SEPARACION_BASE_TUBO+2*diametro_tubo_germicida(), 
+//        /*z*/ESPESOR_MINIMO
+//    ]);
     translate ([
         /*x*/0,
         /*y*/diametro_tubo_germicida()/2+SEPARACION_BASE_TUBO+ESPESOR_MINIMO+2*LUZ_COMPONENTES_PAREDES+dimensiones_reactancia()[1],
@@ -198,6 +200,91 @@ module base() {
 //    ]);
 }
 
+module tapa() {
+    altura_interna = -dimensiones_zocalo_con_arrancador()[2]/2-LUZ_COMPONENTES_PAREDES/2+dimensiones_zocalo_con_arrancador()[2]+LUZ_COMPONENTES_PAREDES/2;
+    translate ([
+        /*x*/0,
+        /*y*/diametro_tubo_germicida()/2+SEPARACION_BASE_TUBO+ESPESOR_MINIMO-SEPARACION_BASE_TUBO-2*diametro_tubo_germicida(),
+        /*z*/altura_interna
+    ]) cube ([
+        /*x*/2*ESPESOR_MINIMO+longitud_tubo_germicida()+2*EXCESO_LONGITUDINAL, 
+        /*y*/ESPESOR_MINIMO+dimensiones_reactancia()[1]+2*LUZ_COMPONENTES_PAREDES+SEPARACION_BASE_TUBO+2*diametro_tubo_germicida(), 
+        /*z*/ESPESOR_MINIMO
+    ]);
+    translate ([
+        /*x*/ESPESOR_MINIMO+LUZ_SOLAPAS_BASE_TAPA,
+        /*y*/diametro_tubo_germicida()/2+SEPARACION_BASE_TUBO+2*LUZ_COMPONENTES_PAREDES+dimensiones_reactancia()[1]-LUZ_SOLAPAS_BASE_TAPA,
+        /*z*/altura_interna-ALTURA_SOLAPA_TAPA
+    ]) cube ([
+        /*x*/longitud_tubo_germicida()+2*EXCESO_LONGITUDINAL-2*LUZ_SOLAPAS_BASE_TAPA, 
+        /*y*/ESPESOR_MINIMO,
+        /*z*/ALTURA_SOLAPA_TAPA
+    ]);
+    translate ([
+        /*x*/ESPESOR_MINIMO+LUZ_SOLAPAS_BASE_TAPA,
+        /*y*/diametro_tubo_germicida()/2+SEPARACION_BASE_TUBO+ESPESOR_MINIMO+2*LUZ_COMPONENTES_PAREDES+dimensiones_reactancia()[1] -(dimensiones_reactancia()[1]+2*LUZ_COMPONENTES_PAREDES+SEPARACION_BASE_TUBO+2*diametro_tubo_germicida())+ESPESOR_MINIMO+LUZ_SOLAPAS_BASE_TAPA,
+        /*z*/altura_interna-ALTURA_SOLAPA_TAPA
+    ]) cube ([
+        /*x*/ESPESOR_MINIMO, 
+        /*y*/dimensiones_reactancia()[1]+2*LUZ_COMPONENTES_PAREDES+SEPARACION_BASE_TUBO+2*diametro_tubo_germicida()-2*ESPESOR_MINIMO-2*LUZ_SOLAPAS_BASE_TAPA,
+        /*z*/ALTURA_SOLAPA_TAPA
+    ]);
+    translate ([
+        /*x*/longitud_tubo_germicida()+2*EXCESO_LONGITUDINAL-LUZ_SOLAPAS_BASE_TAPA,
+        /*y*/diametro_tubo_germicida()/2+SEPARACION_BASE_TUBO+ESPESOR_MINIMO+2*LUZ_COMPONENTES_PAREDES+dimensiones_reactancia()[1] -(dimensiones_reactancia()[1]+2*LUZ_COMPONENTES_PAREDES+SEPARACION_BASE_TUBO+2*diametro_tubo_germicida())+ESPESOR_MINIMO+LUZ_SOLAPAS_BASE_TAPA,
+        /*z*/altura_interna-ALTURA_SOLAPA_TAPA
+    ]) cube ([
+        /*x*/ESPESOR_MINIMO, 
+        /*y*/dimensiones_reactancia()[1]+2*LUZ_COMPONENTES_PAREDES+SEPARACION_BASE_TUBO+2*diametro_tubo_germicida()-2*ESPESOR_MINIMO-2*LUZ_SOLAPAS_BASE_TAPA,
+        /*z*/ALTURA_SOLAPA_TAPA
+    ]);
+    difference() {
+        translate ([
+            /*x*/ESPESOR_MINIMO+LUZ_SOLAPAS_BASE_TAPA,
+            /*y*/diametro_tubo_germicida()/2+SEPARACION_BASE_TUBO+ESPESOR_MINIMO+2*LUZ_COMPONENTES_PAREDES+dimensiones_reactancia()[1] -(dimensiones_reactancia()[1]+2*LUZ_COMPONENTES_PAREDES+SEPARACION_BASE_TUBO+2*diametro_tubo_germicida())+ESPESOR_MINIMO+LUZ_SOLAPAS_BASE_TAPA,
+            /*z*/altura_interna-ALTURA_SOLAPA_TAPA
+        ]) cube ([
+            /*x*/longitud_tubo_germicida()+2*EXCESO_LONGITUDINAL-2*LUZ_SOLAPAS_BASE_TAPA, 
+            /*y*/ESPESOR_MINIMO,
+            /*z*/ALTURA_SOLAPA_TAPA
+        ]);
+        translate ([
+        /*x*/ESPESOR_MINIMO+EXCESO_LONGITUDINAL+longitud_tubo_germicida()/2-LONGITUD_EXPUESTA_TUBO/2-LUZ_SOLAPAS_BASE_TAPA,
+        /*y*/diametro_tubo_germicida()/2+SEPARACION_BASE_TUBO+ESPESOR_MINIMO+2*LUZ_COMPONENTES_PAREDES+dimensiones_reactancia()[1] -(dimensiones_reactancia()[1]+2*LUZ_COMPONENTES_PAREDES+SEPARACION_BASE_TUBO+2*diametro_tubo_germicida())-ESPESOR_MINIMO+ESPESOR_MINIMO+LUZ_SOLAPAS_BASE_TAPA,
+        /*z*/-dimensiones_zocalo_con_arrancador()[2]/2-LUZ_COMPONENTES_PAREDES/2-ESPESOR_MINIMO
+        ]) cube([
+            /*x*/LONGITUD_EXPUESTA_TUBO+2*LUZ_SOLAPAS_BASE_TAPA,
+            /*y*/3*ESPESOR_MINIMO,
+            /*z*/dimensiones_zocalo_con_arrancador()[2]+LUZ_COMPONENTES_PAREDES/2+2*ESPESOR_MINIMO
+        ]);
+    }
+    ///////////
+    difference() {
+        union() {
+            translate ([
+                /*x*/ESPESOR_MINIMO+EXCESO_LONGITUDINAL+longitud_tubo_germicida()/2-LONGITUD_EXPUESTA_TUBO/2-ESPESOR_MINIMO-LUZ_SOLAPAS_BASE_TAPA,
+                /*y*/diametro_tubo_germicida()/2+SEPARACION_BASE_TUBO+ESPESOR_MINIMO+2*LUZ_COMPONENTES_PAREDES+dimensiones_reactancia()[1] -(dimensiones_reactancia()[1]+2*LUZ_COMPONENTES_PAREDES+SEPARACION_BASE_TUBO+2*diametro_tubo_germicida())+ESPESOR_MINIMO+LUZ_SOLAPAS_BASE_TAPA,
+                /*z*/0
+            ]) cube ([
+                /*x*/ESPESOR_MINIMO, 
+                /*y*/diametro_tubo_germicida()/2+SEPARACION_BASE_TUBO - (diametro_tubo_germicida()/2+SEPARACION_BASE_TUBO+ESPESOR_MINIMO-SEPARACION_BASE_TUBO-2*diametro_tubo_germicida()),
+                /*z*/altura_interna
+            ]);
+            translate ([
+                /*x*/EXCESO_LONGITUDINAL+longitud_tubo_germicida()/2+LONGITUD_EXPUESTA_TUBO/2+ESPESOR_MINIMO+LUZ_SOLAPAS_BASE_TAPA,
+                /*y*/diametro_tubo_germicida()/2+SEPARACION_BASE_TUBO+ESPESOR_MINIMO+2*LUZ_COMPONENTES_PAREDES+dimensiones_reactancia()[1] -(dimensiones_reactancia()[1]+2*LUZ_COMPONENTES_PAREDES+SEPARACION_BASE_TUBO+2*diametro_tubo_germicida())+ESPESOR_MINIMO+LUZ_SOLAPAS_BASE_TAPA,
+                /*z*/0
+            ]) cube ([
+                /*x*/ESPESOR_MINIMO, 
+                /*y*/diametro_tubo_germicida()/2+SEPARACION_BASE_TUBO - (diametro_tubo_germicida()/2+SEPARACION_BASE_TUBO+ESPESOR_MINIMO-SEPARACION_BASE_TUBO-2*diametro_tubo_germicida()),
+                /*z*/altura_interna
+            ]);
+        }
+        translate([ESPESOR_MINIMO+EXCESO_LONGITUDINAL,0,0]) rotate(a=90,v=[0,1,0]) cylinder(h=longitud_tubo_germicida(),d=diametro_tubo_germicida()+LUZ_PORTA_TUBOS);
+    }
+}
+////////////////////////////////////////////////////////
+
 translate([EXCESO_LONGITUDINAL+ESPESOR_MINIMO,0,0]) {
     translate([
         /*x*/0,
@@ -212,4 +299,5 @@ translate([EXCESO_LONGITUDINAL+ESPESOR_MINIMO,0,0]) {
     rotate(a=90, v=[0,1,0])
         tubo_germicida();
 }
-base();
+color([.5,.1,.1])tapa();
+color(alpha=0.5) base();
