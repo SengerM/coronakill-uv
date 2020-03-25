@@ -290,6 +290,15 @@ module tapa() {
         /*y*/dimensiones_reactancia()[1]*0.4,
         /*z*/dimensiones_zocalo_con_arrancador()[2]+LUZ_COMPONENTES_PAREDES/2-dimensiones_reactancia()[2]-LUZ_COMPONENTES_PAREDES
     ]);
+    translate ([
+        /*x*/ESPESOR_MINIMO+DIAMETRO_CABLE_ALIMENTACION,
+        /*y*/diametro_tubo_germicida()/2+SEPARACION_BASE_TUBO+ESPESOR_MINIMO+LUZ_COMPONENTES_PAREDES+dimensiones_reactancia()[1]/2-DIAMETRO_CABLE_ALIMENTACION,
+        /*z*/altura_interna-(dimensiones_zocalo_con_arrancador()[2]+LUZ_COMPONENTES_PAREDES/2-2*DIAMETRO_CABLE_ALIMENTACION),
+    ]) cube ([
+        /*x*/(3*4-1)*DIAMETRO_CABLE_ALIMENTACION, 
+        /*y*/2*DIAMETRO_CABLE_ALIMENTACION,
+        /*z*/dimensiones_zocalo_con_arrancador()[2]+LUZ_COMPONENTES_PAREDES/2-2*DIAMETRO_CABLE_ALIMENTACION
+    ]);
 }
 ////////////////////////////////////////////////////////
 
