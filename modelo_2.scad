@@ -7,6 +7,7 @@ POSICION_ARRANCADOR_X = 220;
 POSICION_REACTANCIA_X = 100;
 LUZ_COMPONENTES_PAREDES = 2;
 LONGITUD_EXPUESTA_TUBO = longitud_tubo_germicida()-2*11-2*7-10;
+LUZ_PORTA_TUBOS = 1;
 
 module base() {
     translate ([
@@ -75,14 +76,14 @@ module base() {
                 /*z*/dimensiones_zocalo_con_arrancador()[2]+LUZ_COMPONENTES_PAREDES/2
             ]);
         }
-        translate([ESPESOR_MINIMO+EXCESO_LONGITUDINAL,0,0]) rotate(a=90,v=[0,1,0]) cylinder(h=longitud_tubo_germicida(),d=diametro_tubo_germicida()*1.05);
+        translate([ESPESOR_MINIMO+EXCESO_LONGITUDINAL,0,0]) rotate(a=90,v=[0,1,0]) cylinder(h=longitud_tubo_germicida(),d=diametro_tubo_germicida()+LUZ_PORTA_TUBOS);
         translate ([
         /*x*/ESPESOR_MINIMO+EXCESO_LONGITUDINAL,
-        /*y*/-diametro_tubo_germicida()*1.05/2,
+        /*y*/-diametro_tubo_germicida()/2-LUZ_PORTA_TUBOS/2,
         /*z*/0,
     ]) cube([
         /*x*/longitud_tubo_germicida(),
-        /*y*/diametro_tubo_germicida()*1.05,
+        /*y*/diametro_tubo_germicida()+LUZ_PORTA_TUBOS,
         /*z*/dimensiones_zocalo_con_arrancador()[2]+LUZ_COMPONENTES_PAREDES/2]);
     }
     difference() {
