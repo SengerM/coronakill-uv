@@ -1,5 +1,7 @@
 use <componentes.scad>
 
+$fn = 50;
+
 ESPESOR_MINIMO = 4;
 EXCESO_LONGITUDINAL = 2;
 SEPARACION_BASE_TUBO = 5;
@@ -11,6 +13,7 @@ LUZ_PORTA_TUBOS = 1;
 DIAMETRO_CABLE_ALIMENTACION = 4;
 ALTURA_SOLAPA_TAPA = ESPESOR_MINIMO;
 LUZ_SOLAPAS_BASE_TAPA = 1;
+DIAMETRO_TORNILLOS = 3;
 
 module base() {
     translate ([
@@ -22,15 +25,15 @@ module base() {
         /*y*/ESPESOR_MINIMO,
         /*z*/dimensiones_zocalo_con_arrancador()[2]+LUZ_COMPONENTES_PAREDES/2
     ]);
-//    translate ([
-//        /*x*/0,
-//        /*y*/diametro_tubo_germicida()/2+SEPARACION_BASE_TUBO+ESPESOR_MINIMO-SEPARACION_BASE_TUBO-2*diametro_tubo_germicida(),
-//        /*z*/-ESPESOR_MINIMO-dimensiones_zocalo_con_arrancador()[2]/2-LUZ_COMPONENTES_PAREDES/2
-//    ]) cube ([
-//        /*x*/2*ESPESOR_MINIMO+longitud_tubo_germicida()+2*EXCESO_LONGITUDINAL, 
-//        /*y*/ESPESOR_MINIMO+dimensiones_reactancia()[1]+2*LUZ_COMPONENTES_PAREDES+SEPARACION_BASE_TUBO+2*diametro_tubo_germicida(), 
-//        /*z*/ESPESOR_MINIMO
-//    ]);
+    translate ([
+        /*x*/0,
+        /*y*/diametro_tubo_germicida()/2+SEPARACION_BASE_TUBO+ESPESOR_MINIMO-SEPARACION_BASE_TUBO-2*diametro_tubo_germicida(),
+        /*z*/-ESPESOR_MINIMO-dimensiones_zocalo_con_arrancador()[2]/2-LUZ_COMPONENTES_PAREDES/2
+    ]) cube ([
+        /*x*/2*ESPESOR_MINIMO+longitud_tubo_germicida()+2*EXCESO_LONGITUDINAL, 
+        /*y*/ESPESOR_MINIMO+dimensiones_reactancia()[1]+2*LUZ_COMPONENTES_PAREDES+SEPARACION_BASE_TUBO+2*diametro_tubo_germicida(), 
+        /*z*/ESPESOR_MINIMO
+    ]);
     translate ([
         /*x*/0,
         /*y*/diametro_tubo_germicida()/2+SEPARACION_BASE_TUBO+ESPESOR_MINIMO+2*LUZ_COMPONENTES_PAREDES+dimensiones_reactancia()[1],
@@ -189,6 +192,36 @@ module base() {
         /*y*/diametro_tubo_germicida()/2+SEPARACION_BASE_TUBO+ESPESOR_MINIMO+LUZ_COMPONENTES_PAREDES+dimensiones_reactancia()[1]/2,
         /*z*/-dimensiones_zocalo_con_arrancador()[2]/2-LUZ_COMPONENTES_PAREDES/2,
     ]) trabacable();
+    module porta_tornillo() {
+        difference () {
+            translate ([
+                /*x*/0,
+                /*y*/0,
+                /*z*/-dimensiones_zocalo_con_arrancador()[2]/2-LUZ_COMPONENTES_PAREDES/2,
+            ]) cylinder(h=dimensiones_zocalo_con_arrancador()[2]+LUZ_COMPONENTES_PAREDES/2, d=2*ESPESOR_MINIMO+DIAMETRO_TORNILLOS);
+            translate ([
+                /*x*/0,
+                /*y*/0,
+                /*z*/-dimensiones_zocalo_con_arrancador()[2]/2-LUZ_COMPONENTES_PAREDES/2,
+            ]) cylinder(h=dimensiones_zocalo_con_arrancador()[2]+LUZ_COMPONENTES_PAREDES/2, d=DIAMETRO_TORNILLOS);
+        }
+    }
+    translate ([
+        /*x*/0,
+        /*y*/diametro_tubo_germicida()/2+SEPARACION_BASE_TUBO+2*DIAMETRO_TORNILLOS,
+        /*z*/0,
+    ]) {
+        translate ([
+            /*x*/(2*ESPESOR_MINIMO+longitud_tubo_germicida()+2*EXCESO_LONGITUDINAL)/2-70,
+            /*y*/0,
+            /*z*/0,
+        ]) porta_tornillo();
+        translate ([
+            /*x*/(2*ESPESOR_MINIMO+longitud_tubo_germicida()+2*EXCESO_LONGITUDINAL)/2+70,
+            /*y*/0,
+            /*z*/0,
+        ]) porta_tornillo();
+    }
 //    translate ([
 //        /*x*/0,
 //        /*y*/0,
@@ -299,6 +332,9 @@ module tapa() {
         /*y*/2*DIAMETRO_CABLE_ALIMENTACION,
         /*z*/dimensiones_zocalo_con_arrancador()[2]+LUZ_COMPONENTES_PAREDES/2-2*DIAMETRO_CABLE_ALIMENTACION
     ]);
+    module agujero_pa_tornillos() {
+        
+    }
 }
 ////////////////////////////////////////////////////////
 
@@ -316,5 +352,5 @@ translate([EXCESO_LONGITUDINAL+ESPESOR_MINIMO,0,0]) {
     rotate(a=90, v=[0,1,0])
         tubo_germicida();
 }
-color([.5,.1,.1])tapa();
-color(alpha=0.5) base();
+tapa();
+!base();
