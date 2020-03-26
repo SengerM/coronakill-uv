@@ -369,6 +369,8 @@ module tapa() {
 ////////////////////////////////////////////////////////
 
 translate([EXCESO_LONGITUDINAL+ESPESOR_MINIMO,0,0]) {
+    rotate(a=90, v=[0,1,0])
+        tubo_germicida();
     translate([
         /*x*/0,
         /*y*/diametro_tubo_germicida()/2+SEPARACION_BASE_TUBO+ESPESOR_MINIMO+LUZ_COMPONENTES_PAREDES,
@@ -379,8 +381,7 @@ translate([EXCESO_LONGITUDINAL+ESPESOR_MINIMO,0,0]) {
         translate([POSICION_REACTANCIA_X,0,0])
             reactancia();
     }
-    rotate(a=90, v=[0,1,0])
-        tubo_germicida();
+    
 }
 
 base();
