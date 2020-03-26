@@ -10,10 +10,10 @@ POSICION_REACTANCIA_X = 100;
 LUZ_COMPONENTES_PAREDES = 1;
 LONGITUD_EXPUESTA_TUBO = longitud_tubo_germicida()-2*11-2*7-10;
 LUZ_PORTA_TUBOS = 1;
-DIAMETRO_CABLE_ALIMENTACION = 4;
+DIAMETRO_CABLE_ALIMENTACION = 5.5;
 ALTURA_SOLAPA_TAPA = ESPESOR_MINIMO;
 LUZ_SOLAPAS_BASE_TAPA = 1;
-DIAMETRO_TORNILLOS = 3;
+DIAMETRO_TORNILLOS = 2.5;
 DIAMETRO_CABEZA_TORNILLOS = 5;
 
 module base() {
@@ -209,7 +209,7 @@ module base() {
     }
     translate ([
         /*x*/0,
-        /*y*/diametro_tubo_germicida()/2+SEPARACION_BASE_TUBO+2*DIAMETRO_TORNILLOS,
+        /*y*/diametro_tubo_germicida()/2+SEPARACION_BASE_TUBO+2*(DIAMETRO_TORNILLOS>ESPESOR_MINIMO?DIAMETRO_TORNILLOS:ESPESOR_MINIMO),
         /*z*/0,
     ]) {
         translate ([
@@ -374,13 +374,3 @@ translate([EXCESO_LONGITUDINAL+ESPESOR_MINIMO,0,0]) {
 
 base();
 tapa();
-
-//    translate ([
-//        /*x*/0,
-//        /*y*/0,
-//        /*z*/0,
-//    ]) cube ([
-//        /*x*/0, 
-//        /*y*/0,
-//        /*z*/0
-//    ]);
