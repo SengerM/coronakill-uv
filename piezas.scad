@@ -262,7 +262,7 @@ module tapa() {
         ]);
         translate ([
             /*x*/0,
-            /*y*/diametro_tubo_germicida()/2+SEPARACION_BASE_TUBO+2*DIAMETRO_TORNILLOS,
+            /*y*/diametro_tubo_germicida()/2+SEPARACION_BASE_TUBO+2*(DIAMETRO_TORNILLOS>ESPESOR_MINIMO?DIAMETRO_TORNILLOS:ESPESOR_MINIMO),
             /*z*/0,
         ]) {
             translate ([
@@ -385,4 +385,4 @@ translate([EXCESO_LONGITUDINAL+ESPESOR_MINIMO,0,0]) {
 }
 
 base();
-tapa();
+color(alpha=.5)tapa();
