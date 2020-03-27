@@ -23,7 +23,11 @@ En [este enlace](https://mega.nz/#F!BuhwmabS!pLaiOev4DU2pRdARtZye2w) se encuentr
 
 Algunas imágenes para ilustrar el diseño:
 
-![Layout](https://i.ibb.co/58zWQ6G/1.png)
+![Layout](https://i.ibb.co/KGVj555/2b.png)
+
+![Layout](https://i.ibb.co/DDV1Y9x/2a.png)
+
+![Layout](https://i.ibb.co/QF6HFXL/1.png)
 
 ![Layout](https://i.ibb.co/F09HWK7/Captura-de-pantalla-2020-03-26-00-00-57.png)
 
